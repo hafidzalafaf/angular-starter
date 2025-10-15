@@ -1,0 +1,112 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white relative overflow-hidden">
+  <!-- Navigation -->
+  <nav class="absolute top-0 left-0 right-0 z-50 p-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+        Portfolio
+      </div>
+      <div class="space-x-6">
+        <a 
+          routerLink="/" 
+          class="hover:text-blue-400 transition-colors duration-300 cursor-pointer"
+          [class.text-blue-400]="true">
+          Home
+        </a>
+        <a 
+          routerLink="/about" 
+          class="hover:text-blue-400 transition-colors duration-300 cursor-pointer">
+          About
+        </a>
+        <a href="#projects" class="hover:text-blue-400 transition-colors duration-300">Projects</a>
+        <a href="#contact" class="hover:text-blue-400 transition-colors duration-300">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Background Effects -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
+    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse animation-delay-2000"></div>
+    <div class="absolute top-40 left-1/2 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse animation-delay-4000"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="relative z-10 flex items-center justify-center min-h-screen px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <!-- Profile Image -->
+      <div class="mb-8">
+        <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1">
+          <div class="w-full h-full rounded-full bg-gray-800 flex items-center justify-center">
+            <svg class="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Heading -->
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        Frontend Developer
+      </h1>
+
+      <!-- Subheading -->
+      <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+        Passionate about creating amazing digital experiences with modern technologies
+      </p>
+
+      <!-- Tech Stack -->
+      <div class="mb-12">
+        <p class="text-gray-400 mb-4">Specialized in</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm border border-white/20 hover:bg-white/20 transition-all duration-300">
+            React
+          </span>
+          <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm border border-white/20 hover:bg-white/20 transition-all duration-300">
+            Next.js
+          </span>
+          <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm border border-white/20 hover:bg-white/20 transition-all duration-300">
+            Angular
+          </span>
+          <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm border border-white/20 hover:bg-white/20 transition-all duration-300">
+            Tailwind CSS
+          </span>
+          <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm border border-white/20 hover:bg-white/20 transition-all duration-300">
+            TypeScript
+          </span>
+          <span class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm border border-white/20 hover:bg-white/20 transition-all duration-300">
+            Vue.js
+          </span>
+        </div>
+      </div>
+
+      <!-- Experience Badge -->
+      <div class="mb-12">
+        <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full">
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h2zm4-3a1 1 0 00-1 1v1h2V4a1 1 0 00-1-1zM4 9v7h12V9H4z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-white font-semibold">3+ Years Experience</span>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button 
+          routerLink="/about"
+          class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+          Learn More About Me
+        </button>
+        <button class="px-8 py-4 border-2 border-white/30 hover:border-white/50 rounded-full font-semibold transition-all duration-300 hover:bg-white/10">
+          View My Work
+        </button>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
