@@ -19,6 +19,11 @@
         </a>
         <a href="#projects" class="hover:text-blue-400 transition-colors duration-300">Projects</a>
         <a href="#contact" class="hover:text-blue-400 transition-colors duration-300">Contact</a>
+        <a 
+          routerLink="/admin" 
+          class="hover:text-blue-400 transition-colors duration-300 cursor-pointer">
+          Admin Demo
+        </a>
       </div>
     </div>
   </nav>
@@ -26,128 +31,205 @@
   <!-- Main Content -->
   <div class="pt-24 pb-12 px-6">
     <div class="max-w-6xl mx-auto">
-      <!-- Page Header -->
-      <div class="text-center mb-16">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-          About Me
-        </h1>
-        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-          Get to know more about my journey, skills, and passion for frontend development
-        </p>
+      <!-- Loading State -->
+      <div *ngIf="loading$ | async" class="text-center py-20">
+        <div class="inline-block animate-spin rounded-full h-32 w-32 border-b-2 border-blue-400"></div>
+        <p class="mt-4 text-gray-400">Loading portfolio data...</p>
       </div>
 
-      <!-- Content Grid -->
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <!-- Left Column - Image & Quick Facts -->
-        <div class="space-y-8">
-          <!-- Profile Image -->
-          <div class="relative">
-            <div class="w-80 h-80 mx-auto lg:mx-0 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 p-1">
-              <div class="w-full h-full rounded-2xl bg-gray-800 flex items-center justify-center">
-                <svg class="w-32 h-32 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                </svg>
-              </div>
-            </div>
-          </div>
+      <!-- Error State -->
+      <div *ngIf="error$ | async as error" class="text-center py-20">
+        <div class="text-red-400 text-lg mb-4">{{ error }}</div>
+        <button 
+          (click)="refreshData()"
+          class="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+          Try Again
+        </button>
+      </div>
 
-          <!-- Quick Facts -->
-          <div class="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-            <h3 class="text-xl font-semibold mb-4 text-blue-400">Quick Facts</h3>
-            <div class="space-y-3">
-              <div class="flex items-center">
-                <svg class="w-5 h-5 text-green-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h2zm4-3a1 1 0 00-1 1v1h2V4a1 1 0 00-1-1zM4 9v7h12V9H4z" clip-rule="evenodd" />
-                </svg>
-                <span>3+ Years Experience</span>
-              </div>
-              <div class="flex items-center">
-                <svg class="w-5 h-5 text-green-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>20+ Projects Completed</span>
-              </div>
-              <div class="flex items-center">
-                <svg class="w-5 h-5 text-green-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                </svg>
-                <span>Frontend Specialist</span>
-              </div>
-            </div>
-          </div>
+      <!-- Content -->
+      <div *ngIf="!(loading$ | async) && !(error$ | async)">
+        <!-- Page Header -->
+        <div class="text-center mb-16">
+          <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            About Me
+          </h1>
+          <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+            Get to know more about my journey, skills, and passion for frontend development
+          </p>
         </div>
 
-        <!-- Right Column - Story & Skills -->
-        <div class="space-y-8">
-          <!-- My Story -->
-          <div>
-            <h2 class="text-3xl font-bold mb-6 text-white">My Story</h2>
-            <div class="space-y-4 text-gray-300 leading-relaxed">
-              <p>
-                I'm a passionate frontend developer with over 3 years of experience creating 
-                beautiful, functional, and user-friendly web applications. My journey began 
-                with curiosity about how websites work, and it quickly evolved into a deep 
-                love for crafting digital experiences.
-              </p>
-              <p>
-                Throughout my career, I've had the opportunity to work on diverse projects, 
-                from small business websites to complex enterprise applications. I believe 
-                in writing clean, maintainable code and staying up-to-date with the latest 
-                technologies and best practices.
-              </p>
-              <p>
-                When I'm not coding, you can find me exploring new technologies, contributing 
-                to open-source projects, or sharing knowledge with the developer community.
-              </p>
+        <!-- Content Grid -->
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <!-- Left Column - Image & Quick Facts -->
+          <div class="space-y-8">
+            <!-- Profile Image -->
+            <div class="relative">
+              <div class="w-80 h-80 mx-auto lg:mx-0 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 p-1">
+                <div class="w-full h-full rounded-2xl bg-gray-800 flex items-center justify-center">
+                  <svg class="w-32 h-32 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- Skills -->
-          <div>
-            <h3 class="text-2xl font-bold mb-6 text-white">Technical Skills</h3>
-            <div class="space-y-4">
-              <!-- Frontend Frameworks -->
-              <div>
-                <h4 class="text-blue-400 font-semibold mb-2">Frontend Frameworks</h4>
-                <div class="flex flex-wrap gap-2">
-                  <span class="px-3 py-1 bg-blue-600/20 border border-blue-600/30 rounded-full text-sm">React</span>
-                  <span class="px-3 py-1 bg-blue-600/20 border border-blue-600/30 rounded-full text-sm">Next.js</span>
-                  <span class="px-3 py-1 bg-red-600/20 border border-red-600/30 rounded-full text-sm">Angular</span>
-                  <span class="px-3 py-1 bg-green-600/20 border border-green-600/30 rounded-full text-sm">Vue.js</span>
+            <!-- Quick Facts - Using Data from Store -->
+            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+              <h3 class="text-xl font-semibold mb-4 text-blue-400">Quick Facts</h3>
+              <div class="space-y-3" *ngIf="portfolioSummary$ | async as summary">
+                <div class="flex items-center">
+                  <svg class="w-5 h-5 text-green-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h2zm4-3a1 1 0 00-1 1v1h2V4a1 1 0 00-1-1zM4 9v7h12V9H4z" clip-rule="evenodd" />
+                  </svg>
+                  <span>{{ summary.yearsExperience }}+ Years Experience</span>
                 </div>
-              </div>
-              
-              <!-- Languages -->
-              <div>
-                <h4 class="text-purple-400 font-semibold mb-2">Languages</h4>
-                <div class="flex flex-wrap gap-2">
-                  <span class="px-3 py-1 bg-purple-600/20 border border-purple-600/30 rounded-full text-sm">TypeScript</span>
-                  <span class="px-3 py-1 bg-purple-600/20 border border-purple-600/30 rounded-full text-sm">JavaScript</span>
-                  <span class="px-3 py-1 bg-purple-600/20 border border-purple-600/30 rounded-full text-sm">HTML5</span>
-                  <span class="px-3 py-1 bg-purple-600/20 border border-purple-600/30 rounded-full text-sm">CSS3</span>
+                <div class="flex items-center">
+                  <svg class="w-5 h-5 text-green-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{{ summary.totalProjects }}+ Projects Completed</span>
                 </div>
-              </div>
-
-              <!-- Tools & Others -->
-              <div>
-                <h4 class="text-green-400 font-semibold mb-2">Styling & Tools</h4>
-                <div class="flex flex-wrap gap-2">
-                  <span class="px-3 py-1 bg-green-600/20 border border-green-600/30 rounded-full text-sm">Tailwind CSS</span>
-                  <span class="px-3 py-1 bg-green-600/20 border border-green-600/30 rounded-full text-sm">SCSS</span>
-                  <span class="px-3 py-1 bg-green-600/20 border border-green-600/30 rounded-full text-sm">Git</span>
-                  <span class="px-3 py-1 bg-green-600/20 border border-green-600/30 rounded-full text-sm">Webpack</span>
+                <div class="flex items-center">
+                  <svg class="w-5 h-5 text-green-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                  </svg>
+                  <span>Frontend Specialist</span>
+                </div>
+                <div class="flex items-center">
+                  <svg class="w-5 h-5 text-green-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 7v10a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-1V5a3 3 0 00-3-3H9a3 3 0 00-3 3v2H5a2 2 0 00-2 2z" />
+                  </svg>
+                  <span>{{ summary.totalSkills }} Tech Skills</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- CTA -->
-          <div class="pt-6">
-            <button 
-              routerLink="/"
-              class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
-              Back to Home
-            </button>
+          <!-- Right Column - Story & Skills -->
+          <div class="space-y-8">
+            <!-- My Story - Using Data from Store -->
+            <div *ngIf="personalInfo$ | async as personalInfo">
+              <h2 class="text-3xl font-bold mb-6 text-white">My Story</h2>
+              <div class="space-y-4 text-gray-300 leading-relaxed">
+                <p>{{ personalInfo.bio }}</p>
+                <div class="mt-4 p-4 bg-white/5 rounded-lg border border-white/10">
+                  <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span class="text-blue-400 font-semibold">Name:</span>
+                      <p>{{ personalInfo.name }}</p>
+                    </div>
+                    <div>
+                      <span class="text-blue-400 font-semibold">Title:</span>
+                      <p>{{ personalInfo.title }}</p>
+                    </div>
+                    <div>
+                      <span class="text-blue-400 font-semibold">Location:</span>
+                      <p>{{ personalInfo.location }}</p>
+                    </div>
+                    <div>
+                      <span class="text-blue-400 font-semibold">Email:</span>
+                      <p>{{ personalInfo.email }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Skills - Using Data from Store -->
+            <div *ngIf="skillsByCategory$ | async as skillsData">
+              <h3 class="text-2xl font-bold mb-6 text-white">Technical Skills</h3>
+              <div class="space-y-4">
+                <!-- Frontend Frameworks -->
+                <div *ngIf="skillsData.frontend.length > 0">
+                  <h4 class="text-blue-400 font-semibold mb-2">Frontend Frameworks</h4>
+                  <div class="flex flex-wrap gap-2">
+                    <span 
+                      *ngFor="let skill of skillsData.frontend"
+                      class="px-3 py-1 bg-blue-600/20 border border-blue-600/30 rounded-full text-sm flex items-center gap-2">
+                      {{ skill.name }}
+                      <span class="text-xs bg-blue-600/40 px-2 py-0.5 rounded">{{ skill.level }}/10</span>
+                    </span>
+                  </div>
+                </div>
+                
+                <!-- Languages -->
+                <div *ngIf="skillsData.language.length > 0">
+                  <h4 class="text-purple-400 font-semibold mb-2">Languages</h4>
+                  <div class="flex flex-wrap gap-2">
+                    <span 
+                      *ngFor="let skill of skillsData.language"
+                      class="px-3 py-1 bg-purple-600/20 border border-purple-600/30 rounded-full text-sm flex items-center gap-2">
+                      {{ skill.name }}
+                      <span class="text-xs bg-purple-600/40 px-2 py-0.5 rounded">{{ skill.level }}/10</span>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Tools & Others -->
+                <div *ngIf="skillsData.tool.length > 0">
+                  <h4 class="text-green-400 font-semibold mb-2">Tools & Libraries</h4>
+                  <div class="flex flex-wrap gap-2">
+                    <span 
+                      *ngFor="let skill of skillsData.tool"
+                      class="px-3 py-1 bg-green-600/20 border border-green-600/30 rounded-full text-sm flex items-center gap-2">
+                      {{ skill.name }}
+                      <span class="text-xs bg-green-600/40 px-2 py-0.5 rounded">{{ skill.level }}/10</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Featured Projects Preview -->
+            <div *ngIf="featuredProjects$ | async as projects">
+              <h3 class="text-2xl font-bold mb-6 text-white">Featured Projects</h3>
+              <div class="space-y-4">
+                <div 
+                  *ngFor="let project of projects" 
+                  class="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/10 hover:border-blue-400/30 transition-colors">
+                  <h4 class="text-lg font-semibold text-blue-400 mb-2">{{ project.title }}</h4>
+                  <p class="text-gray-300 text-sm mb-3">{{ project.description }}</p>
+                  <div class="flex flex-wrap gap-2 mb-3">
+                    <span 
+                      *ngFor="let tech of project.technologies"
+                      class="text-xs px-2 py-1 bg-gray-700 rounded">
+                      {{ tech }}
+                    </span>
+                  </div>
+                  <div class="flex gap-2">
+                    <a 
+                      *ngIf="project.liveUrl"
+                      [href]="project.liveUrl" 
+                      target="_blank"
+                      class="text-xs px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded transition-colors">
+                      Live Demo
+                    </a>
+                    <a 
+                      *ngIf="project.githubUrl"
+                      [href]="project.githubUrl" 
+                      target="_blank"
+                      class="text-xs px-3 py-1 bg-gray-600 hover:bg-gray-700 rounded transition-colors">
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="pt-6 flex gap-4">
+              <button 
+                routerLink="/"
+                class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
+                Back to Home
+              </button>
+              <button 
+                (click)="refreshData()"
+                class="px-8 py-4 bg-gray-600 hover:bg-gray-700 rounded-full font-semibold transition-all duration-300">
+                Refresh Data
+              </button>
+            </div>
           </div>
         </div>
       </div>
